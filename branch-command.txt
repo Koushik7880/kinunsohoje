@@ -1,0 +1,75 @@
+# Kinunshoje
+
+
+echo "# kinunsohoje" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Koushik7880/kinunsohoje.git
+git push -u origin main
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/Koushik7880/kinunsohoje.git
+git branch -M main
+git push -u origin main
+
+
+
+
+
+Great! You’ve got the right branching flow: feature ➝ dev ➝ main. Below is a full step-by-step command guide to manage this workflow locally and on GitHub:
+🚀 1. Initialize Git and Connect to GitHub
+
+git init                     # Initialize git repo in your local project
+git remote add origin https://github.com/Koushik7880/kinunsohoje.git
+
+🌱 2. Create and Push main Branch
+
+git checkout -b main
+git add .
+git commit -m "Initial commit on main"
+git push -u origin main
+
+🌿 3. Create and Push dev Branch from main
+
+git checkout -b dev
+git push -u origin dev
+
+🌴 4. Create and Push feature Branch from dev
+
+git checkout -b feature/my-feature-name
+# make changes in code...
+git add .
+git commit -m "Add: my feature"
+git push -u origin feature/my-feature-name
+
+🔀 5. Merge feature ➝ dev
+
+git checkout dev
+git pull origin dev
+git merge feature/my-feature-name
+git push origin dev
+
+🔀 6. Merge dev ➝ main
+
+git checkout main
+git pull origin main
+git merge dev
+git push origin main
+
+✅ Optional Cleanup
+
+git branch -d feature/my-feature-name          # Delete local feature branch
+git push origin --delete feature/my-feature-name  # Delete remote feature branch
+
+💡 Tip:
+
+Use meaningful feature branch names like:
+
+feature/user-auth
+feature/product-page
+feature/api-integration
+
+Let me know if you want a Git alias cheat sheet, GitHub Actions CI/CD for this flow, or how to manage this using GitHub Desktop or VS Code Git tools!
