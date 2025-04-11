@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: bistro-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=bossUser
+      - MONGO_INITDB_ROOT_PASSWORD=gvLxuipYkFsCgWYZ
+    networks:
+      - bistro-net
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./bistro-boss-server
+      dockerfile: Dockerfile
+    container_name: bistro-server
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./bistro-boss-server/.env
+    environment:
+      - PORT=5000
+      - DB_USER=bossUser
+      - DB_PASS=gvLxuipYkFsCgWYZ
+    depends_on:
+      - mongo
+    networks:
+      - bistro-net
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./bistro-boss-client
+      dockerfile: Dockerfile
+    container_name: bistro-client
+    ports:
+      - "4173:4173"
+    env_file:
+      - ./bistro-boss-client/.env.local
+    depends_on:
+      - server
+    networks:
+      - bistro-net
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+
+networks:
+  bistro-net:
+    driver: bridge
